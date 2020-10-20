@@ -1,3 +1,4 @@
+//ガウスザイデル法の汎用版
 #include <stdio.h>
 #include <math.h>
 #define error 0.0000000001 //収束判定定数
