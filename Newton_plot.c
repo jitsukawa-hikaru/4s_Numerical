@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define eps (1.0e-11)
+#define f(x) (x*x*2-8)
+#define df(x) (x*4)
+
+int main(){
+	FILE *gp;
+	double xn, xo;
+
+	gp = popen("gnuplot -persist", "w");
+	fprintf(gp, "set yrange [-5: 5]\n");
+	fprintf(gp, "set xrange [-1: 4]\n");
+	fprintf(gp, "plot x*x*2-8, 0\n");
+	xn = (xo = 2) + 1;
+	while(fabs(xn - xo) > eps){
+		xo = xn;
+		xn = xo - f(xo)/df(xo);
+		fprintf(gp, "replot (%lf*4)*(x-%lf) + (%lf*%lf*2-8)\n", xn, xn, xn, xn);
+	}
+	pclose(gp);
+	printf("%.10lf\n", xn);
+	return 0;
+}
