@@ -3,8 +3,8 @@
 #include <math.h>
 
 #define eps (1.0e-11) //誤差
-#define f(x) (x*x*2-8) //解を求めたい式
-#define df(x) (x*4) //f(x)の微分
+#define f(x) (cos(x)-2*x) //解を求めたい式
+#define df(x) (-sin(x)-2) //f(x)の微分
 
 int main(){
 	FILE *f;
@@ -12,7 +12,7 @@ int main(){
 	double x, xt;
 
 	f = fopen("graph.txt", "w"); //求める過程をファイルに書き込む
-	x = (xt = 1) + 1; //初期値設定
+	x = (xt = 10) + 1; //初期値設定
 	while(fabs(xt - x) > eps && i < max){
 		x = xt;
 		xt = -1 *f(x) / df(x) +x;
