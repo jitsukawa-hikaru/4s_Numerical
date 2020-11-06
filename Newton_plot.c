@@ -11,10 +11,10 @@ int main(){
 	double xn, xo;
 
 	gp = popen("gnuplot -persist", "w");
-	fprintf(gp, "set yrange [-5: 5]\n");
-	fprintf(gp, "set xrange [-1: 4]\n");
+	fprintf(gp, "set yrange [-100: 1000]\n");
+	fprintf(gp, "set xrange [-10: 60]\n");
 	fprintf(gp, "plot x*x*2-8, 0\n");
-	xn = (xo = 2) + 1;
+	xn = (xo = 20) + 1;
 	while(fabs(xn - xo) > eps){
 		xo = xn;
 		xn = xo - f(xo)/df(xo);
