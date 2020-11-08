@@ -15,7 +15,7 @@ int main(){
 	fprintf(gp, "set yrange [-2: 2]\n");
 	fprintf(gp, "set xrange [0.5: 5]\n");
 	fprintf(gp, "plot log(x)-1, 0\n");
-	xn = (xo = 0) + 1;
+	xo = (xn = 1) + 1;
 	while(fabs(xn - xo) > eps && i < max){
 		xo = xn;
 		xn = xo - f(xo)/df(xo);
