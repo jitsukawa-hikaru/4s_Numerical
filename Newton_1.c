@@ -12,7 +12,7 @@ int main(){
 	double x, xt;
 
 	f = fopen("graph.txt", "w"); //求める過程をファイルに書き込む
-	x = (xt = 10) + 1; //初期値設定
+	x = (xt = 100) + 1; //初期値設定
 	while(fabs(xt - x) > eps && i < max){
 		x = xt;
 		xt = -1 *f(x) / df(x) +x;
@@ -21,6 +21,6 @@ int main(){
 		fprintf(f, "%.10lf %.10lf\n", x, f(x));
 	}
 	if(i == max) printf("Not found answer.\n");
-	else printf("%.10lf\n%.10lf\n", x, f(x));
+	else printf("%.10lf\n\n", x);
 	return 0;
 }
