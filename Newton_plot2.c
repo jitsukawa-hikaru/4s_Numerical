@@ -9,18 +9,22 @@
 int main(){
 	FILE *gp;
 	double xn, xo;
+	int i=0, max=100;
 
 	gp = popen("gnuplot -persist", "w");
 	fprintf(gp, "set yrange [-2: 2]\n");
 	fprintf(gp, "set xrange [0.5: 5]\n");
 	fprintf(gp, "plot log(x)-1, 0\n");
 	xn = (xo = 0) + 1;
-	while(fabs(xn - xo) > eps){
+	while(fabs(xn - xo) > eps && i < max){
 		xo = xn;
 		xn = xo - f(xo)/df(xo);
-		fprintf(gp, "replot (1/%lf)*(x-%lf) + (log(%lf)-1)\n", xn, xn, xn);
+		fprintf(gp, "replot (1/%lf)*(x-%lf) + (log(%lf)-1)\n", xo, xo, xo);
+		i++;
+		printf("[round:%2d], x = %.10lf\n", i, xo);
 	}
 	pclose(gp);
-	printf("%.10lf\n", xn);
+	if(i == max) printf("Not found answer.\n");
+	else printf("%.10lf\n", xo);
 	return 0;
 }
