@@ -25,6 +25,7 @@ int main(){
 	}
 	pclose(gp);
 	if(i == max) printf("Not found answer.\n");
+	else if(fabs(xo) != 0) printf("Not found answer.\n");
 	else printf("%.10lf\n", xo);
 	return 0;
 }
