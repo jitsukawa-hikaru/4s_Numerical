@@ -1,26 +1,26 @@
 #include <stdio.h>
 
-int main(){
+void Conversion(){
 	FILE *lf, *sf;
-	char str[1000];
-	int a;
-	int i = 0;
+	int a, i = 0;
 
-	printf("Read file\n-->");
-	lf = fopen("test.txt", "r");
-	sf = fopen("Conversion_result.txt","w");
-	while(fgets(str,1000,lf)){
-		printf("%s", str);
+	if((lf = fopen("test.txt", "r")) != NULL){
+		sf = fopen("Conversion_result.txt", "w");
+		while((a = fgetc(lf)) != EOF){
+			if(a > 0x40 && a < 0x5B) a = a;
+			else if(a > 0x60 && a < 0x7B) a = a - 0x20;
+			else if(a == 0x20 || a == 0x0A) a = a;
+			else a = 0x7F;
+			fputc(a, sf);
+		}
+		fclose(lf);
+		fclose(sf);
+	}else{
+		printf("File open error!\n");
 	}
-	i = 0;
-	printf("Conversion result\n-->");
-	do{
-		if(str[i] > 0x40 && str[i] < 0x5B) a = str[i];
-		else if(str[i] > 0x60 && str[i] < 0x7B) a = str[i] - 0x20;
-		else if(str[i] == 0x20 || str[i] == 0x0A) a = str[i];
-		else a = 0x7F;
-		printf("%c", a);
-		fputc(a, sf);
-	}while(str[i++] != 0x0A);
+}
+
+int main(){
+	Conversion();
 	return 0;
 }
